@@ -45,6 +45,12 @@ The migration was successfully applied, confirming that the database structure m
 
 <img src="/migration.png">
 
+## Database Seed
+The database was successfully seeded using Prisma Seed
+```bash
+npx prisma db seed
+```
+<img src="/seed.png">
 ## Stretch Goals Implemented
 
 - **Review Model:** Added a `Review` model establishing a relational link between `Book` and `User` to track ratings (`1-5`) and written feedback.
