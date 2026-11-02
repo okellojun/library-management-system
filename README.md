@@ -51,6 +51,7 @@ The database was successfully seeded using Prisma Seed
 npx prisma db seed
 ```
 <img src="/seed.png">
+
 ## Stretch Goals Implemented
 
 - **Review Model:** Added a `Review` model establishing a relational link between `Book` and `User` to track ratings (`1-5`) and written feedback.
