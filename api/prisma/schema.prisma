@@ -1,0 +1,61 @@
+datasource db {
+  provider = "postgresql"
+  
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  PATRON
+  LIBRARIAN
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(PATRON)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  reviews   Review[]
+
+  @@map("users")
+}
+
+model Genre {
+  id    String @id @default(uuid())
+  name  String @unique
+  books Book[]
+
+  @@map("genres")
+}
+
+model Book {
+  id            String   @id @default(uuid())
+  title         String
+  author        String
+  publishedYear Int?
+  isbn          String?  @unique
+  genreId       String
+  genre         Genre    @relation(fields: [genreId], references: [id], onDelete: Restrict)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  reviews       Review[]
+
+  @@map("books")
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int      // 1 to 5 scale
+  comment   String?
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@map("reviews")
+}
